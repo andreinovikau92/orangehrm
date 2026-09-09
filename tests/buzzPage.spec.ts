@@ -43,7 +43,7 @@ myTest.describe('Buzz Page', () => {
         await expect(page.locator('[class="oxd-toast-container oxd-toast-container--bottom"]')).toBeVisible();
     });
 
-    myTest.only('Verify the post is deleted', async ({ page, startPage }) => {
+    myTest('Verify the post is deleted', async ({ page, startPage }) => {
         const buzzPage = new BuzzPage(page);
         await buzzPage.clickBuzzOption();
         await buzzPage.fillPostField('delete');
