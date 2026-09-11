@@ -53,4 +53,13 @@ myTest.describe('Buzz Page', () => {
         await buzzPage.clickYesDeleteButton();
         await expect(page.locator('[class="oxd-toast-container oxd-toast-container--bottom"]')).toBeVisible();
     });
+
+    myTest('Verify after clicking X the Shere Photos pop up is closed', async ({ page, startPage }) => {
+        const buzzPage = new BuzzPage(page);
+        await buzzPage.clickBuzzOption();
+        await buzzPage.clickSharePhotosBtn();
+        await buzzPage.clickXButton();
+        const buzzNewsFeedHeader = page.getByText('Buzz Newsfeed')
+        await expect(buzzNewsFeedHeader).toBeVisible();
+    })
 });

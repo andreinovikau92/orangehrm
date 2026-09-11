@@ -12,7 +12,8 @@ export class BuzzPage {
     readonly addPhotosBtn: Locator;
     readonly deletePost: Locator;
     readonly deletePostIcon: Locator;
-    readonly yesDeleteBtn: Locator
+    readonly yesDeleteBtn: Locator;
+    readonly xBtn: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -26,6 +27,7 @@ export class BuzzPage {
         this.deletePost = page.locator('li button[class="oxd-icon-button"]').first();
         this.deletePostIcon = page.getByText('Delete Post');
         this.yesDeleteBtn = page.getByRole('button', { name: ' Yes, Delete '});
+        this.xBtn = page.locator('[class="oxd-dialog-close-button oxd-dialog-close-button-position"]');
     }
 
     async clickBuzzOption() {
@@ -72,5 +74,9 @@ export class BuzzPage {
 
     async clickYesDeleteButton() {
         await this.yesDeleteBtn.click();
+    }
+
+    async clickXButton() {
+        await this.xBtn.click();
     }
 }
