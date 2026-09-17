@@ -62,4 +62,15 @@ myTest.describe('Buzz Page', () => {
         const buzzNewsFeedHeader = page.getByText('Buzz Newsfeed')
         await expect(buzzNewsFeedHeader).toBeVisible();
     })
+
+    myTest('Verify after clicking the Most Liked Posts button, the most liked post is displayed', async ({ page, startPage }) => {
+        const buzzPage = new BuzzPage(page);
+        await buzzPage.clickBuzzOption();
+        await buzzPage.clickMostLikedPostsButton();
+        const likeElements = page.locator('p.oxd-text--p').filter({ hasText: /Likes$/ });
+        await expect(likeElements.first()).toBeVisible();
+        const likeTexts = await likeElements.allTextContents();
+        const likes = likeTexts.map(text => Number(text.replace(' Likes', '').trim()));
+        expect(likes[0]).toBe(Math.max(...likes));
+    });
 });
