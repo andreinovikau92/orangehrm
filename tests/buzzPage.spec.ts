@@ -73,4 +73,15 @@ myTest.describe('Buzz Page', () => {
         const likes = likeTexts.map(text => Number(text.replace(' Likes', '').trim()));
         expect(likes[0]).toBe(Math.max(...likes));
     });
+
+    myTest('Verify after clicking the Most Commented Posts button, the most commented post is displayed', async ({ page, startPage }) => {
+        const buzzPage = new BuzzPage(page);
+        await buzzPage.clickBuzzOption();
+        await buzzPage.clickMostLikedCommentButton();
+        const comment = page.locator('p.oxd-text--p').filter({ hasText: /Comment$/});
+        await expect(comment.first()).toBeVisible();
+        const commentTexts = await comment.allTextContents();
+        const comments = commentTexts.map(text => Number(text.replace(' Comment', '').trim()));
+        expect(comments[0]).toBe(Math.max(...comments));
+    });
 });
