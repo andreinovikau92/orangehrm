@@ -15,6 +15,7 @@ export class BuzzPage {
     readonly yesDeleteBtn: Locator;
     readonly xBtn: Locator;
     readonly mostLikedPostsBtn: Locator;
+    readonly mostCommentedPostsBtn: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -30,6 +31,7 @@ export class BuzzPage {
         this.yesDeleteBtn = page.getByRole('button', { name: ' Yes, Delete '});
         this.xBtn = page.locator('[class="oxd-dialog-close-button oxd-dialog-close-button-position"]');
         this.mostLikedPostsBtn = page.getByRole('button', { name: ' Most Liked Posts '});
+        this.mostCommentedPostsBtn = page.getByRole('button', { name: ' Most Commented Posts '});
     }
 
     async clickBuzzOption() {
@@ -84,5 +86,9 @@ export class BuzzPage {
 
     async clickMostLikedPostsButton() {
         await this.mostLikedPostsBtn.click();
+    }
+
+    async clickMostLikedCommentButton() {
+        await this.mostCommentedPostsBtn.click();
     }
 }
