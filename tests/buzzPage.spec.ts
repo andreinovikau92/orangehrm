@@ -84,4 +84,12 @@ myTest.describe('Buzz Page', () => {
         const comments = commentTexts.map(text => Number(text.replace(' Comment', '').trim()));
         expect(comments[0]).toBe(Math.max(...comments));
     });
+
+    myTest('Verify after clicking the Comment icon the innput field is visible', async({ page, startPage }) => {
+        const buzzPage = new BuzzPage(page);
+        await buzzPage.clickBuzzOption();
+        await buzzPage.clickCommentIcon();
+        const inputField = page.getByPlaceholder('Write your comment...');
+        expect(inputField).toBeVisible();
+    });
 });
