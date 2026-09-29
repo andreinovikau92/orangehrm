@@ -14,7 +14,8 @@ myTest.describe('Buzz Page', () => {
         await buzzPage.clickBuzzOption();
         await buzzPage.fillPostField('test');
         await buzzPage.clickPostBtn();
-        await expect(page.locator('#oxd-toaster_1')).toBeVisible()
+        const toastMessage = page.getByText('Successfully Saved');
+        await expect(toastMessage).toBeVisible();
     });
 
     myTest('Verify after clicking the Share Photos btn the upload popup is opened', async ({ page, startPage }) => {
@@ -30,7 +31,8 @@ myTest.describe('Buzz Page', () => {
         await buzzPage.clickSharePhotosBtn();
         await buzzPage.uploadFile();
         await buzzPage.clickShareButton();
-        await expect(page.locator('[class="oxd-toast-container oxd-toast-container--bottom"]')).toBeVisible();
+        const toastMessage = page.getByText('Successfully Saved');
+        await expect(toastMessage).toBeVisible();
     });
 
     myTest('Verify the multiple files are uploaded', async ({ page, startPage }) => {
@@ -40,7 +42,8 @@ myTest.describe('Buzz Page', () => {
         await buzzPage.uploadFile();
         await buzzPage.addPhotosButton();
         await buzzPage.clickShareButton();
-        await expect(page.locator('[class="oxd-toast-container oxd-toast-container--bottom"]')).toBeVisible();
+        const toastMessage = page.getByText('Successfully Saved');
+        await expect(toastMessage).toBeVisible();
     });
 
     myTest('Verify the post is deleted', async ({ page, startPage }) => {
@@ -51,7 +54,8 @@ myTest.describe('Buzz Page', () => {
         await buzzPage.clickThreeDotsBtn();
         await buzzPage.clickDeletePostIcon();
         await buzzPage.clickYesDeleteButton();
-        await expect(page.locator('[class="oxd-toast-container oxd-toast-container--bottom"]')).toBeVisible();
+        const toastMessage = page.getByText('Successfully Saved');
+        await expect(toastMessage).toBeVisible();
     });
 
     myTest('Verify after clicking X the Shere Photos pop up is closed', async ({ page, startPage }) => {
@@ -91,5 +95,17 @@ myTest.describe('Buzz Page', () => {
         await buzzPage.clickCommentIcon();
         const inputField = page.getByPlaceholder('Write your comment...');
         expect(inputField).toBeVisible();
+    });
+
+    myTest('Verify the comment is added under the post', async({ page, startPage }) => {
+        const buzzPage = new BuzzPage(page);
+        await buzzPage.clickBuzzOption();
+        await buzzPage.clickCommentIcon();
+        await buzzPage.page.getByPlaceholder('Write your comment...').fill('Test');
+        await buzzPage.pressEnterKey();
+        const commentLocator = page.locator('[class="oxd-text oxd-text--span orangehrm-post-comment-text"]').first();
+        await expect(commentLocator).toBeVisible();
+        const toastMessage = page.getByText('Successfully Saved');
+        await expect(toastMessage).toBeVisible();
     });
 });

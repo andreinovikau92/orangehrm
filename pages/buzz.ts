@@ -17,6 +17,7 @@ export class BuzzPage {
     readonly mostLikedPostsBtn: Locator;
     readonly mostCommentedPostsBtn: Locator;
     readonly commentIcon: Locator;
+    readonly EnterKey: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -34,6 +35,7 @@ export class BuzzPage {
         this.mostLikedPostsBtn = page.getByRole('button', { name: ' Most Liked Posts '});
         this.mostCommentedPostsBtn = page.getByRole('button', { name: ' Most Commented Posts '});
         this.commentIcon = page.locator('button.oxd-icon-button').nth(3);
+        this.EnterKey = page.getByPlaceholder('Write your comment...');
     }
 
     async clickBuzzOption() {
@@ -96,5 +98,9 @@ export class BuzzPage {
 
     async clickCommentIcon() {
         await this.commentIcon.click();
+    }
+
+    async pressEnterKey() {
+        await this.EnterKey.press('Enter');
     }
 }
