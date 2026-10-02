@@ -108,4 +108,18 @@ myTest.describe('Buzz Page', () => {
         const toastMessage = page.getByText('Successfully Saved');
         await expect(toastMessage).toBeVisible();
     });
+
+    myTest('Verify the comment is deleted under the post', async({ page, startPage }) => {
+        const buzzPage = new BuzzPage(page);
+        await buzzPage.clickBuzzOption();
+        await buzzPage.clickCommentIcon();
+        await buzzPage.page.getByPlaceholder('Write your comment...').fill('Test');
+        await buzzPage.pressEnterKey();
+        await buzzPage.clickDeleteCommentOption();
+        const areYouSurePopUp = page.getByText('Are you Sure?');
+        await expect(areYouSurePopUp).toBeVisible();
+        await buzzPage.clickYesDeleteCommentButton();
+        const toastMessage = page.getByText('Successfully Saved');
+        await expect(toastMessage).toBeVisible();
+    });
 });
