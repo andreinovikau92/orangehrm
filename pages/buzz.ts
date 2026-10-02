@@ -18,6 +18,8 @@ export class BuzzPage {
     readonly mostCommentedPostsBtn: Locator;
     readonly commentIcon: Locator;
     readonly EnterKey: Locator;
+    readonly deleteCommentOption: Locator;
+    readonly yesDeleteCommentButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -36,6 +38,8 @@ export class BuzzPage {
         this.mostCommentedPostsBtn = page.getByRole('button', { name: ' Most Commented Posts '});
         this.commentIcon = page.locator('button.oxd-icon-button').nth(3);
         this.EnterKey = page.getByPlaceholder('Write your comment...');
+        this.deleteCommentOption = page.getByText('Delete');
+        this.yesDeleteCommentButton = page.getByText(' Yes, Delete ');
     }
 
     async clickBuzzOption() {
@@ -102,5 +106,13 @@ export class BuzzPage {
 
     async pressEnterKey() {
         await this.EnterKey.press('Enter');
+    }
+
+    async clickDeleteCommentOption() {
+        await this.deleteCommentOption.click();
+    }
+
+    async clickYesDeleteCommentButton() {
+        await this.yesDeleteCommentButton.click();
     }
 }
